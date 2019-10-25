@@ -15,11 +15,13 @@ struct CurrentWeatherData : Codable {
 }
 
 struct Weather : Codable {
+    var main : String
     var description : String
     var icon : String
-    var main : String
 }
 
 struct Main : Codable {
     var temp : Double
+    var pressure: Double;
+    var humidity: Double;
 }
