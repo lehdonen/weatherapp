@@ -17,6 +17,8 @@
 		C62217C723508EC800AEAFE4 /* CurrentWeatherController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C62217C623508EC800AEAFE4 /* CurrentWeatherController.swift */; };
 		C62217C923508EFC00AEAFE4 /* ForecastController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C62217C823508EFC00AEAFE4 /* ForecastController.swift */; };
 		C62217CB23508F1100AEAFE4 /* CitiesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C62217CA23508F1100AEAFE4 /* CitiesController.swift */; };
+		C6CE96052362FEB7001E4DF2 /* APIController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6CE96042362FEB7001E4DF2 /* APIController.swift */; };
+		C6CE960723630009001E4DF2 /* CurrentWeatherData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6CE960623630009001E4DF2 /* CurrentWeatherData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +55,8 @@
 		C62217C623508EC800AEAFE4 /* CurrentWeatherController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentWeatherController.swift; sourceTree = "<group>"; };
 		C62217C823508EFC00AEAFE4 /* ForecastController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastController.swift; sourceTree = "<group>"; };
 		C62217CA23508F1100AEAFE4 /* CitiesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitiesController.swift; sourceTree = "<group>"; };
+		C6CE96042362FEB7001E4DF2 /* APIController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIController.swift; sourceTree = "<group>"; };
+		C6CE960623630009001E4DF2 /* CurrentWeatherData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentWeatherData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +116,8 @@
 				C622179F2350801800AEAFE4 /* Assets.xcassets */,
 				C62217A12350801800AEAFE4 /* LaunchScreen.storyboard */,
 				C62217A42350801800AEAFE4 /* Info.plist */,
+				C6CE96042362FEB7001E4DF2 /* APIController.swift */,
+				C6CE960623630009001E4DF2 /* CurrentWeatherData.swift */,
 			);
 			path = weatherapp;
 			sourceTree = "<group>";
@@ -267,8 +273,10 @@
 			files = (
 				C62217C723508EC800AEAFE4 /* CurrentWeatherController.swift in Sources */,
 				C622179B2350801600AEAFE4 /* ViewController.swift in Sources */,
+				C6CE96052362FEB7001E4DF2 /* APIController.swift in Sources */,
 				C62217C923508EFC00AEAFE4 /* ForecastController.swift in Sources */,
 				C62217CB23508F1100AEAFE4 /* CitiesController.swift in Sources */,
+				C6CE960723630009001E4DF2 /* CurrentWeatherData.swift in Sources */,
 				C62217992350801600AEAFE4 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
