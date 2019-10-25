@@ -11,17 +11,17 @@ import CoreLocation
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
     var window: UIWindow?
     
     var reqController : APIController?
     var locationManager : CLLocationManager?
+    var geoCoder = CLGeocoder()
+
     var currentWeatherController : CurrentWeatherController?
     var forecastController : ForecastController?
     var citiesController : CitiesController?
-    
-    var geoCoder = CLGeocoder()
-    var locations : CLLocationCoordinate2D?
+        
+    var locationCoord : CLLocationCoordinate2D?
     var location : CLLocation?
     var placeMark: CLPlacemark?
     
@@ -34,14 +34,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         forecastController = tabBarController.viewControllers![1] as! ForecastController
         citiesController = tabBarController.viewControllers![2] as! CitiesController
         
-        reqController
-            = APIController()
+        reqController = APIController()
         
         currentWeatherController?.reqController = self.reqController
         
         self.locationManager = CLLocationManager()
         currentWeatherController?.locationManager = self.locationManager
-        self.locationManager!.delegate = self as! CLLocationManagerDelegate
+        self.locationManager!.delegate = self
         locationManager!.requestAlwaysAuthorization()
         self.locationManager!.startUpdatingLocation()
         
@@ -49,13 +48,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        self.locations = self.locationManager?.location?.coordinate
-        self.location = CLLocation(latitude: (self.locations?.latitude)!, longitude: (self.locations?.longitude)!)
+        self.locationCoord = self.locationManager?.location?.coordinate
+        self.location = CLLocation(latitude: (self.locationCoord?.latitude)!, longitude: (self.locationCoord?.longitude)!)
+        
         geoCoder.reverseGeocodeLocation(location!, completionHandler: {(placemarks, error) -> Void in
             var place: CLPlacemark!
             place = placemarks?[0]
+
             self.placeMark = placemarks?[0]
-            self.currentWeatherController?.setLocation(loc: self.locations!, place: place)
+            self.currentWeatherController?.setLocation(loc: self.locationCoord!, place: place)
         })
         
         self.locationManager!.stopUpdatingLocation()
@@ -68,10 +69,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(_ application: UIApplication, shouldSaveApplicationState coder: NSCoder) -> Bool {
-        return true
-    }
-    
-    func application(_ application: UIApplication, shouldRestoreApplicationState coder: NSCoder) -> Bool {
         return true
     }
     
