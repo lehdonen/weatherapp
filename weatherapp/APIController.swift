@@ -15,19 +15,16 @@ class APIController {
         
     }
     
-    func fetchWeather(url : String, cont: CurrentWeatherController){
-        
+    func fetchWeather(URL : String, cont: CurrentWeatherController){
         currentWeatherCotroller = cont
-        
-        fecthUrl(url: url)
-        
+        fetchURL(URL: URL)
     }
     
-    func newLocation(command: String){
-        currentWeatherCotroller?.changeLocation(command: command)
+    func newLocation(city: String){
+        currentWeatherCotroller?.newLocation(input: city)
     }
     
-    func fecthUrl(url: String){
+    func fetchURL(URL: String){
         
         let config = URLSessionConfiguration.default
         
@@ -49,9 +46,7 @@ class APIController {
                     
                     DispatchQueue.main.async(execute: {() in
                         
-                        // self.currentWeatherCotroller!.desc.text = weatherData.weather[0].description
-                        let formatted = String(format: "%.1f", weatherData.main.temp)
-                        self.currentWeatherCotroller!.temperature.text = "  \(formatted) ° C"
+                        self.currentWeatherCotroller!.temperature.text = "  \(weatherData.main.temp) ° C"
                         
                     })
                 } catch {
