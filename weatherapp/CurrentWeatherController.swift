@@ -13,28 +13,18 @@ import CoreLocation
 class CurrentWeatherController : UIViewController {
     var reqController : APIController?
     var geoCoder = CLGeocoder()
+    var APPID = "1926fe0ba26221588265e05596d1c0e3"
+
     var location : CLLocationCoordinate2D?
     var locationManager : CLLocationManager?
-    var APPID = "1926fe0ba26221588265e05596d1c0e3"
     
     @IBOutlet weak var city: UILabel!
     @IBOutlet weak var weatherIMG: UIImageView!
     @IBOutlet weak var temperature: UILabel!
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-    }
-    
-    override func encodeRestorableState(with coder: NSCoder) {
-        
-        coder.encode(self.city.text, forKey: "placeName")
-        coder.encode(self.temperature.text, forKey: "temp")
-        // coder.encode(self.description.text, forKey: "description")
-        coder.encode(self.weatherIMG.image, forKey: "weatherImage")
-        
-        super.encodeRestorableState(with: coder)
     }
     
     override func decodeRestorableState(with coder: NSCoder) {
@@ -44,31 +34,41 @@ class CurrentWeatherController : UIViewController {
         // let description = coder.decodeObject(forKey: "description") as? String
         let weatherIMG = coder.decodeObject(forKey: "weatherImage") as? UIImage
         
-        if let cityText = city,
-            let tempText = temperature,
-            let IMG = weatherIMG{
-            self.city.text = cityText
+        if  let cityString = city,
+            // let descString = description,
+            let tempString = temperature,
+            let IMG = weatherIMG 
+        {
+            self.city.text = cityString
+            // self.description.text = descString
             self.temperature.text = tempText
             self.weatherIMG.image = IMG
         }
+
         super.decodeRestorableState(with: coder)
     }
     
-    func setLocation(loc : CLLocationCoordinate2D, place : CLPlacemark){
-        self.location = loc
+    override func encodeRestorableState(with coder: NSCoder) {
+        coder.encode(self.city.text, forKey: "city")
+        //coder.encode(self.description.text, forKey: "description")
+        coder.encode(self.temperature.text, forKey: "temperature")
+        coder.encode(self.weatherIMG.image, forKey: "weatherImage")
+        
+        super.encodeRestorableState(with: coder)
+    }
+
+    func setLocation(location : CLLocationCoordinate2D, place : CLPlacemark){
+        self.location = location
         self.city.text = place.locality!
-        reqController!.fetchWeather(url: "https://api.openweathermap.org/data/2.5/weather?lat=\(loc.latitude)&lon=\(loc.longitude)&units=metric&APPID=" + APPID,cont: self)
+        reqController!.fetchWeather(url: "https://api.openweathermap.org/data/2.5/weather?lat=\(location.latitude)&lon=\(location.longitude)&units=metric&APPID=" + APPID, cont: self)
     }
     
-    func changeLocation(command: String){
-        if(command == "Use GPS") {
+    func newLocation(input: String){
+        if (input == "Use GPS") {
             locationManager?.startUpdatingLocation()
-        }
-        else {
-            let str = command
-            let replaced = str.replacingOccurrences(of: " ", with: "+")
-            self.city.text = command
-            reqController!.fetchWeather(url: "https://api.openweathermap.org/data/2.5/weather?q=\(replaced)&units=metric&APPID=" + APPID,cont: self)
+        } else {
+            self.city.text = input
+            reqController!.fetchWeather(url: "https://api.openweathermap.org/data/2.5/weather?q=\(input)&units=metric&APPID=" + APPID, cont: self)
         }
     }
 }
