@@ -9,19 +9,19 @@
 import Foundation
 
 class APIController {
-    var currentWeatherCotroller : CurrentWeatherController?
+    var currentWeatherController : CurrentWeatherController?
     
     init(){
         
     }
     
-    func fetchWeather(URL : String, cont: CurrentWeatherController){
-        currentWeatherCotroller = cont
+    func fetchWeather(URL : String, controller: CurrentWeatherController){
+        currentWeatherController = controller
         fetchURL(URL: URL)
     }
     
     func newLocation(city: String){
-        currentWeatherCotroller?.newLocation(input: city)
+        currentWeatherController?.newLocation(input: city)
     }
     
     func fetchURL(URL: String){
@@ -46,7 +46,7 @@ class APIController {
                     
                     DispatchQueue.main.async(execute: {() in
                         
-                        self.currentWeatherCotroller!.temperature.text = "  \(weatherData.main.temp) ° C"
+                        self.currentWeatherController!.temperature.text = "  \(weatherData.main.temp) ° C"
                         
                     })
                 } catch {
