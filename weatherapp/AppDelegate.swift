@@ -10,7 +10,7 @@ import UIKit
 import CoreLocation
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate  {
     var window: UIWindow?
     
     var reqController : APIController?
@@ -38,12 +38,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         currentWeatherController?.reqController = self.reqController
         
+        
         self.locationManager = CLLocationManager()
         currentWeatherController?.locationManager = self.locationManager
+        
         self.locationManager!.delegate = self
+
         locationManager!.requestAlwaysAuthorization()
         self.locationManager!.startUpdatingLocation()
         
+
         return true
     }
     
