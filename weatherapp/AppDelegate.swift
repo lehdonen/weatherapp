@@ -30,20 +30,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
         
         let tabBarController = window?.rootViewController as! UITabBarController
         
-        currentWeatherController = tabBarController.viewControllers![0] as! CurrentWeatherController
-        forecastController = tabBarController.viewControllers![1] as! ForecastController
-        citiesController = tabBarController.viewControllers![2] as! CitiesController
+        currentWeatherController = tabBarController.viewControllers![0] as? CurrentWeatherController
+        forecastController = tabBarController.viewControllers![1] as? ForecastController
+        citiesController = tabBarController.viewControllers![2] as? CitiesController
+        
         
         reqController = APIController()
-        
         currentWeatherController?.reqController = self.reqController
-        
+        citiesController?.reqController = self.reqController
         
         self.locationManager = CLLocationManager()
         currentWeatherController?.locationManager = self.locationManager
+        citiesController?.locationManager = self.locationManager
         
         self.locationManager!.delegate = self
-
         locationManager!.requestAlwaysAuthorization()
         self.locationManager!.startUpdatingLocation()
         
@@ -60,7 +60,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, CLLocationManagerDelegate
             place = placemarks?[0]
 
             self.placeMark = placemarks?[0]
-            self.currentWeatherController?.setLocation(loc: self.locationCoord!, place: place)
+            self.currentWeatherController?.setLocation(location: self.locationCoord!, place: place)
         })
         
         self.locationManager!.stopUpdatingLocation()
