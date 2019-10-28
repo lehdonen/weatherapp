@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 class APIController {
     var currentWeatherController : CurrentWeatherController?
@@ -17,14 +18,14 @@ class APIController {
     
     func fetchWeather(URL : String, controller: CurrentWeatherController){
         currentWeatherController = controller
-        fetchURL(URL: URL)
+        fetchURL(url: URL)
     }
     
     func newLocation(city: String){
         currentWeatherController?.newLocation(input: city)
     }
     
-    func fetchURL(URL: String){
+    func fetchURL(url: String){
         
         let config = URLSessionConfiguration.default
         
@@ -42,16 +43,20 @@ class APIController {
                 do{
                     let weatherData = try JSONDecoder().decode(CurrentWeatherData.self, from:data!)
                     
-                    self.fetchWeather(url: "https://openweathermap.org/img/wn/\(weatherData.weather[0].icon)@2x.png", cont: currentWeatherCotroller!)
+                    self.fetchWeather(URL: "https://openweathermap.org/img/wn/\(weatherData.weather[0].icon)@2x.png", controller: currentWeatherController!)
                     
                     DispatchQueue.main.async(execute: {() in
                         
                         self.currentWeatherController!.temperature.text = "  \(weatherData.main.temp) ° C"
-                        
+                        self.currentWeatherController!.desc.text = " \(weatherData.weather[0].description)"
                     })
                 } catch {
                     print(error)
                 }
-            }
+        } else if let img = UIImage(data: data!) {
+            DispatchQueue.main.async(execute: {() in
+                self.currentWeatherController?.weatherIMG.image = img
+            })
         }
+    }
 }
