@@ -21,7 +21,7 @@ class CitiesController : UIViewController, UITableViewDataSource, UITableViewDel
     @IBOutlet weak var city: UITextField!
     
     @IBAction func addCity(_ sender: Any) {
-        if let input = city.text{
+        if let input = city.text {
             if input != "" {
                 self.tableContents.append(city.text!)
                 tableView.reloadData()
